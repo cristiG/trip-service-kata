@@ -80,3 +80,7 @@ python -m pytest python/tests/test_tripservice.py -v
 **Baseline Result:** 2 tests passed successfully.
 
 These tests provide a baseline for checking that the application's behavior remains consistent during refactoring.
+
+
+### 4.3 Test Non-Friend User Gets Empty Trips
+This test verifies that an empty list is returned when the logged-in user is not a friend of the requested user.
