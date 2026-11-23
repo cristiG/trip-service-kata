@@ -36,3 +36,22 @@ def test_friend_user_gets_trips(monkeypatch):
     result = tripservice.getTripsByUser(user)
 
     assert result == expected_trips
+
+
+
+def test_non_friend_user_gets_empty_trips(monkeypatch):
+    user = tripservice.User()
+    logged_user = tripservice.User()
+    another_friend = tripservice.User()
+
+    monkeypatch.setattr(
+        tripservice, "_getLoggedUser", lambda: logged_user
+    )
+
+    monkeypatch.setattr(
+        user, "getFriends", lambda: [another_friend], raising=False
+    )
+
+    result = tripservice.getTripsByUser(user)
+
+    assert result == []
