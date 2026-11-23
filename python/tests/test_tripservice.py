@@ -13,7 +13,7 @@ def test_user_not_logged_in(monkeypatch):
     monkeypatch.setattr(tripservice, "_getLoggedUser", lambda: None)
 
     with pytest.raises(tripservice.UserNotLoggedInException):
-        tripservice.getTripsByUser(user)
+        tripservice.get_trips_by_user(user)
 
 
 def test_friend_user_gets_trips(monkeypatch):
@@ -33,7 +33,7 @@ def test_friend_user_gets_trips(monkeypatch):
         tripservice, "_findTripsByUser", lambda user: expected_trips
     )
 
-    result = tripservice.getTripsByUser(user)
+    result = tripservice.get_trips_by_user(user)
 
     assert result == expected_trips
 
@@ -52,6 +52,6 @@ def test_non_friend_user_gets_empty_trips(monkeypatch):
         user, "getFriends", lambda: [another_friend], raising=False
     )
 
-    result = tripservice.getTripsByUser(user)
+    result = tripservice.get_trips_by_user(user)
 
     assert result == []
