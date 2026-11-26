@@ -4,7 +4,7 @@
 #
 # Exceptions
 #
-class DependendClassCallDuringUnitTestException(Exception):
+class DependentClassCallDuringUnitTestException(Exception):
   pass
 
 class UserNotLoggedInException(Exception):
@@ -31,21 +31,24 @@ class User:
 # Functions
 #
 def _isUserLoggedIn(user):
-  raise DependendClassCallDuringUnitTestException(
+  raise DependentClassCallDuringUnitTestException(
     "UserSession.isUserLoggedIn() should not be called in an unit test"
   )
 
 def _getLoggedUser():
-  raise DependendClassCallDuringUnitTestException(
+  raise DependentClassCallDuringUnitTestException(
     "UserSession.getLoggedUser() should not be called in an unit test"
   )
 
 def _findTripsByUser(user):
-  raise DependendClassCallDuringUnitTestException(
+  raise DependentClassCallDuringUnitTestException(
     "TripDAO should not be invoked on an unit test."
   )
 
-def getTripsByUser(user):
+def is_friend(loggedUser, user):
+    return loggedUser in user.getFriends()
+
+def get_trips_by_user(user):
     loggedUser = _getLoggedUser()
     if loggedUser:
       if loggedUser in user.getFriends():
